@@ -1,26 +1,25 @@
 import java.util.Random;
 import java.util.Scanner;
 
-class TicTacToe {
-	final char SIGN_X = 'x';
-	final char SIGN_O = 'o';
-	final char SIGN_EMPTY = '_';
-	int countTableCells = -1;
-	char[][] table;
-	Random random;
-	Scanner scanner;
+public class TicTacToe {
+	private final char SIGN_X = 'x';
+	private final char SIGN_O = 'o';
+	private final char SIGN_EMPTY = '_';
+	private int countTableCells = -1;
+	private char[][] table;
+	private Random random;
+	private Scanner scanner;
 	
 	public static void main(String[] args) {
 		new TicTacToe().game();
 	}
 	
-	TicTacToe() {
+	public TicTacToe() {
 		random = new Random();
 		scanner = new Scanner(System.in);
-		//table = new char[3][3];
 	}
 	
-	void game() {
+	public void game() {
 		do {
 			setCountTableCells();
 			initTable();
@@ -52,13 +51,13 @@ class TicTacToe {
 		} while (scanner.nextInt() == 1);
 	}
 	
-	void initTable() {
+	private void initTable() {
 		for (int row = 0; row < countTableCells; row++)
 			for (int col = 0; col < countTableCells; col++)
 				table[row][col] = SIGN_EMPTY;
 	}
 	
-	void printTable() {
+	private void printTable() {
 		for (int row = 0; row < countTableCells; row++) {
 			for (int col = 0; col < countTableCells; col++)
 				System.out.print(table[row][col] + " ");
@@ -66,13 +65,13 @@ class TicTacToe {
 		}
 	}
 	
-	boolean isCellValid(int x, int y) {
+	private boolean isCellValid(int x, int y) {
 		if (x < 0 || y < 0 || x >= countTableCells || y >= countTableCells)
 			return false;
 		return table[x][y] == SIGN_EMPTY;
 	}
 	
-	void setCountTableCells() {
+	private void setCountTableCells() {
 		do {
 			System.out.println("Enter count table cells (3-5):");
 			if (scanner.hasNextInt()) {
@@ -84,7 +83,7 @@ class TicTacToe {
 		table = new char[countTableCells][countTableCells];
 	}
 	
-	void turnHuman() {
+	private void turnHuman() {
 		int x = -1;
 		int y = -1;
 		do {
@@ -108,7 +107,7 @@ class TicTacToe {
 		table[x][y] = SIGN_X;
 	}
 	
-	void turnAI() {
+	private void turnAI() {
 		int x, y;
 		do {
 			x = random.nextInt(countTableCells);
@@ -117,7 +116,7 @@ class TicTacToe {
 		table[x][y] = SIGN_O;
 	}
 	
-	boolean checkWin(char dot) {
+	private boolean checkWin(char dot) {
 		int countCellDot = 0;
 		for (int row = 0; row < countTableCells; row++) { 
 			countCellDot = 0;
@@ -159,7 +158,7 @@ class TicTacToe {
 		return false;
 	}
 	
-	boolean isTableFull() {
+	private boolean isTableFull() {
 		for (int row = 0; row < countTableCells; row++)
 			for (int col = 0; col < countTableCells; col++)
 				if (table[row][col] == SIGN_EMPTY)
