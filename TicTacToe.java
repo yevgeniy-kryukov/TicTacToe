@@ -14,12 +14,12 @@ public class TicTacToe {
 		new TicTacToe().game();
 	}
 	
-	public TicTacToe() {
+	private TicTacToe() {
 		random = new Random();
 		scanner = new Scanner(System.in);
 	}
 	
-	public void game() {
+	private void game() {
 		do {
 			setCountTableCells();
 			initTable();
