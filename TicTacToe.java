@@ -24,31 +24,27 @@ public class TicTacToe {
 			setCountTableCells();
 			initTable();
 			while (true) {
-				turnHuman();
-				System.out.println("Human:");
-				printTable();
-				if (checkWin(SIGN_X)) {
-					System.out.println("YOU WIN!");
-					break;
-				}
-				if (isTableFull()) {
-					System.out.println("Sorry, DRAW!");
-					break;
-				}
-				turnAI();
-				System.out.println("AI:");
-				printTable();
-				if (checkWin(SIGN_O)) {
-					System.out.println("AI WIN!");
-					break;
-				}
-				if (isTableFull()) {
-					System.out.println("Sorry, DRAW!");
-					break;
-				}
+				stepHuman();
+				if (isFinalStep("Human")) break;
+				stepAI();
+				if (isFinalStep("AI")) break;
 			}
 			System.out.println("Repeat game: Yes-1, No-0");
 		} while (scanner.nextInt() == 1);
+	}
+	
+	private boolean isFinalStep(String objName) {
+		System.out.println(objName + ":");
+		printTable();
+		if (checkWin(SIGN_X)) {
+			System.out.println(objName + " WIN!");
+			return true;
+		}
+		if (isTableFull()) {
+			System.out.println("Sorry, DRAW!");
+			return true;
+		}		
+		return false;
 	}
 	
 	private void initTable() {
@@ -83,17 +79,19 @@ public class TicTacToe {
 		table = new char[countTableCells][countTableCells];
 	}
 	
-	private void turnHuman() {
+	private void stepHuman() {
 		int x = -1;
 		int y = -1;
 		do {
 			System.out.println("Enter X and Y (1.." + countTableCells + "):");
+			System.out.print("X: ");
 			if (scanner.hasNextInt()) {
 				x = scanner.nextInt() - 1;
 			} else {
 				scanner.next();
 				continue;
 			}
+			System.out.print("Y: ");
 			if (scanner.hasNextInt()) {
 				y = scanner.nextInt() - 1;
 			} else {
@@ -102,12 +100,10 @@ public class TicTacToe {
 			}
 		} while (!isCellValid(x, y));
 		
-		System.out.println("x:" + x);
-		System.out.println("y:" + y);
 		table[x][y] = SIGN_X;
 	}
 	
-	private void turnAI() {
+	private void stepAI() {
 		int x, y;
 		do {
 			x = random.nextInt(countTableCells);
