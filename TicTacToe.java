@@ -113,7 +113,8 @@ public class TicTacToe {
 	}
 	
 	private boolean checkWin(char dot) {
-		int countCellDot = 0;
+		int countCellDot;
+		
 		for (int row = 0; row < countTableCells; row++) { 
 			countCellDot = 0;
 			for (int col = 0; col < countTableCells; col++) {
@@ -124,7 +125,6 @@ public class TicTacToe {
 			}
 		}
 		
-		countCellDot = 0;
 		for (int col = 0; col < countTableCells; col++) { 
 			countCellDot = 0;
 			for (int row = 0; row < countTableCells; row++) {
